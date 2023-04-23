@@ -1,0 +1,43 @@
+<div class="row">
+
+  <div class="col-md-3"></div>
+  <div class="col-md-6">
+
+    <div class="card">
+      <div class="card-header bg-dark text-white">
+        {{#if editMode}}Edicion{{else}}Creacion{{/if}} de Regiones
+      </div>
+
+      {{#if editMode}}
+ <img src="{{region.imagen}}" class="card-img-tob mt-4" style="align-self: center; width:40%;" alt="{{region.nombre}}">
+
+ {{/if}}
+      <div class="card-body">
+
+        <form method="POST" action="{{#if editMode}}/edit-region{{else}}/save-region{{/if}}">
+          <div class="mb-3">
+            <label for="nombre" class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="nombre" name="Nombre"  required value="{{#if editMode}}{{region.nombre}}{{/if}}"/>
+          </div>    
+             <div class="mb-3">
+            <label for="imagen" class="form-label">Link de imagen:</label>
+            <input type="text" class="form-control" id="imagen" name="Imagen" value="{{#if editMode}}{{region.imagen}}{{/if}}"/>
+          </div>       
+
+          {{#if editMode}}
+
+          <input type="hidden" name="regionId" value="{{region.id}}">
+          
+          {{/if}}
+
+          <button type="submit" class="btn btn-primary">{{#if editMode}}Editar{{else}}Crear{{/if}}</button>
+           <a href="/regions" type="button" class="btn btn-warning">volver atras</a>
+        </form>
+
+      </div>
+    </div>
+
+  </div>
+  <div class="col-md-6"></div>
+
+</div>

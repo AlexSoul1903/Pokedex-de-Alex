@@ -1,0 +1,128 @@
+<main>
+
+
+{{#if hasRegions}}
+{{#if hasTypes}}
+  <div class="card">
+    <div class="card-header bg-info text-lg-end">
+      <h2 class=" text-center">Manejador de Pokemon</h2>
+    </div>
+
+{{#if editMode}}
+ <img src="{{pokemon.imagen}}" class="card-img-tob mt-4" style="align-self: center; width:40%;" alt="{{pokemon.nombre}}">
+
+ {{/if}}
+
+    <div class="card-body">
+
+      <form method="POST" action="{{#if editMode}}/edit-pokemon{{else}}/save-pokemon{{/if}}">
+        <div class="mb-3">
+          
+          <label for="name" class="form-label">Nombre:</label>
+          <input type="text" class="form-control" id="name" name="Name" value="{{#if editMode}}{{pokemon.nombre}}{{/if}}" required/>
+
+        </div>
+        <div class="mb-3">
+          <label for="image" class="form-label">Link de la imagen del Pokemon:</label>
+          <input type="text" class="form-control" id="image" name="Image" value="{{#if editMode}}{{pokemon.imagen}}{{/if}}" />
+
+        </div>
+
+   <div class="mb-3">
+          <label for="region" class="form-label">Region:</label>
+          <select required name="Region" id="region" class=" form-select border-radius ">
+
+              <option value=""{{#if editMode}}{{else}}selected{{/if}}>Seleccione una Region.</option>
+  
+              {{#each regions as |region|}}
+
+              {{#if (IgualValor region.id ../pokemon.regionId)}}
+
+                  <option selected  value="{{region.id}}">{{region.nombre}}</option>
+
+                  {{else}}
+       <option  value="{{region.id}}">{{region.nombre}}</option>
+
+       {{/if}}
+
+               {{/each}}
+
+
+                       
+          </select>
+        </div>
+
+         <div class="mb-3">
+          <label for="type" class="form-label">Seleccione el tipo:</label>
+          <select required name="Type" id="type" class=" form-select border-radius ">
+
+              <option value="">Seleccione un tipo.</option>
+              
+              {{#each type as |types|}}
+
+               {{#if (IgualValor types.id ../pokemon.typeId)}}
+               
+               <option selected value="{{types.id}}">{{types.nombre}}</option>
+
+               {{else}}
+                  <option value="{{types.id}}">{{types.nombre}}</option>
+
+{{/if}}
+
+               {{/each}}
+
+          </select>
+        </div>
+
+       
+         <div class="mb-3">
+          <label for="typesec" class="form-label">Seleccione el tipo secundario:</label>
+          <select  name="Typesec" id="typesec" class=" form-select border-radius ">
+
+   <option value="">Seleccione un tipo.</option>
+              
+              {{#each typesec as |typesS|}}
+
+                  {{#if (IgualValor typesS.id ../pokemon.typesecId)}}
+
+  <option selected value="{{typesS.id}}">{{typesS.nombre}}</option>
+
+      {{else}}
+                  <option value="{{typesS.id}}">{{typesS.nombre}}</option>
+
+
+{{/if}}
+               {{/each}}
+
+          </select>
+        </div>
+
+<div>
+
+  {{#if editMode}}
+
+          <input type="hidden" value="{{pokemon.id}}" name="pokemonId">
+          
+          {{/if}}
+                
+        <button id="enviar" type="submit" class="btn btn-primary">{{#if editMode}}Editar{{else}}Agregar{{/if}}</button>
+         <a href="/admin-pokemon" type="button" class="btn btn-warning">volver atras</a>
+      </form>
+
+    </div>
+  </div>
+
+{{else}}
+<h2 class=" text-danger">No hay tipos guardados</h2>
+
+{{/if}}
+
+{{else}}
+
+<h2 class=" text-danger">No hay regiones guardadas</h2>
+{{/if}}
+
+
+
+
+</main>
